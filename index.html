@@ -5,7 +5,7 @@
 <!-- パス名から名前を取得 -->
 <script>
   const pathParts = window.location.pathname.split('/');
-  const userName = pathParts[pathParts.length - 1] || 'あなた'; // パスの最後が名前
+  const userName = pathParts[pathParts.length - 1] || 'あなた';
 </script>
 <title id="page-title">特定完了：あなたの個人LINE</title>
 <meta name="description" content="タップをして確認">
@@ -57,20 +57,17 @@
 </div>
 
 <script>
-  // 名前を画面に表示
   document.getElementById('target-name').textContent = userName;
   
-  // タイトルとOGPを更新
   const dynamicTitle = `特定完了：${userName}の個人LINE`;
   document.title = dynamicTitle;
   document.querySelector('meta[property="og:title"]').setAttribute('content', dynamicTitle);
   document.querySelector('meta[property="og:site_name"]').setAttribute('content', dynamicTitle);
   document.querySelector('meta[name="twitter:title"]').setAttribute('content', dynamicTitle);
 
-  // 1秒後にLINEアプリへ遷移
   setTimeout(function() {
     window.location.href = "line://nv/profile";
-  }, 1000);
+  }, 3000);
 </script>
 
 </body>
