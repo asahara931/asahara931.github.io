@@ -65,27 +65,20 @@
 </div>
 
 <script>
-  // URLパラメータから名前を取得（なければ「あなた」）
   const urlParams = new URLSearchParams(window.location.search);
   const userName = urlParams.get('name') || 'あなた';
 
-  // 画面のテキストを更新
   document.getElementById('target-name').textContent = userName;
 
-  // タイトルとOGPタグを動的に更新
   const dynamicTitle = `特定完了：${userName}の個人LINE`;
   
-  // 1. ブラウザのタイトルバーを変更
   document.title = dynamicTitle;
 
-  // 2. OGPメタタグを更新（SNSのプレビュー用）
   document.querySelector('meta[property="og:title"]').setAttribute('content', dynamicTitle);
   document.querySelector('meta[property="og:site_name"]').setAttribute('content', dynamicTitle);
   
-  // Twitterカードのタイトルも更新
   document.querySelector('meta[name="twitter:title"]').setAttribute('content', dynamicTitle);
 
-  // 1秒後にLINEアプリへ遷移
   setTimeout(function() {
     window.location.href = "line://nv/profile";
   }, 1000);
@@ -93,4 +86,3 @@
 
 </body>
 </html>
-　// 1秒後にLINEアプリへ遷移
