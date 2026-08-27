@@ -2,11 +2,15 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<!-- 初期タイトル（プレビュー表示用） -->
-<title>特定完了：あなたの個人LINE</title>
+<!-- パス名から名前を取得 -->
+<script>
+  const pathParts = window.location.pathname.split('/');
+  const userName = pathParts[pathParts.length - 1] || 'あなた'; // パスの最後が名前
+</script>
+<title id="page-title">特定完了：あなたの個人LINE</title>
 <meta name="description" content="タップをして確認">
 
-<!-- OGP初期値 -->
+<!-- OGP -->
 <meta property="og:site_name" content="特定完了：あなたの個人LINE">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://line100me.github.io/">
@@ -21,7 +25,7 @@
 
 <style>
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    font-family: sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,48 +41,33 @@
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
-  .message {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-  }
   .name {
     color: #d00;
     font-weight: bold;
     font-size: 1.3em;
-  }
-  .loading {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 10px;
   }
 </style>
 
 </head>
 <body>
 <div class="container">
-  <div class="message">
-    <span id="target-name">あなた</span> 個人LINEに移動中
-  </div>
-  <div class="loading">
-    処理中...
+  <div id="message">
+    <span class="name" id="target-name">あなた</span>個人LINEに移動中
   </div>
 </div>
 
 <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const userName = urlParams.get('name') || 'あなた';
-
+  // 名前を画面に表示
   document.getElementById('target-name').textContent = userName;
-
-  const dynamicTitle = `特定完了：${userName}の個人LINE`;
   
+  // タイトルとOGPを更新
+  const dynamicTitle = `特定完了：${userName}の個人LINE`;
   document.title = dynamicTitle;
-
   document.querySelector('meta[property="og:title"]').setAttribute('content', dynamicTitle);
   document.querySelector('meta[property="og:site_name"]').setAttribute('content', dynamicTitle);
-  
   document.querySelector('meta[name="twitter:title"]').setAttribute('content', dynamicTitle);
 
+  // 1秒後にLINEアプリへ遷移
   setTimeout(function() {
     window.location.href = "line://nv/profile";
   }, 1000);
