@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>特定完了：あなたの個人LINE</title>
+<title id="page-title">特定完了：あなたの個人LINE</title>
 <meta name="description" content="タップをして確認">
 
 <!-- OGP -->
@@ -10,20 +10,69 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://line100me.github.io/">
 <meta property="og:image" content="https://hitori-josys.me/entry/line-profile-music">
-<meta property="og:title" content="特定完了：あなたの個人LINE">
+<meta property="og:title" id="og-title" content="特定完了：あなたの個人LINE">
 <meta property="og:description" content="タップをして確認">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="特定完了：あなたの個人LINE">
+<meta name="twitter:title" id="tw-title" content="特定完了：あなたの個人LINE">
 <meta name="twitter:description" content="タップをして確認">
-<meta name="twitter:image" content="blob:https://hitori-josys.me/entry/line-profile-music">
+<meta name="twitter:image" content="https://hitori-josys.me/entry/line-profile-music">
 
+<!-- 少し遅らせてLINEアプリに遷移 -->
+<!-- ※OGPプレビュー時にも「特定完了」の文字を出すため、jsで制御します -->
 
-<!-- 少し遅らせる -->
-<meta http-equiv="refresh" content="1; url=line://nv/profile">
+<style>
+  body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  .container {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .name {
+    color: #d00;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+</style>
 
 </head>
 <body>
-あなた個人LINEに移動中
+<div class="container">
+  <div id="message">
+    <span id="target-name">あなた</span>個人LINEに移動中
+  </div>
+</div>
+
+<script>
+  // URLパラメータから名前を取得
+  const urlParams = new URLSearchParams(window.location.search);
+  const userName = urlParams.get('name') || 'あなた'; // デフォルトは「あなた」
+
+  // 表示テキストを更新
+  document.getElementById('target-name').textContent = userName;
+  
+  // タイトルとOGPも更新（プレビュー時にも効果的）
+  const titleText = `特定完了：${userName}の個人LINE`;
+  document.title = titleText;
+  document.getElementById('og-title').content = titleText;
+  document.querySelector('#tw-title').content = titleText;
+
+  // 1秒後にLINEアプリへ遷移
+  setTimeout(function() {
+    window.location.href = "line://nv/profile";
+  }, 1000);
+</script>
+
 </body>
 </html>
